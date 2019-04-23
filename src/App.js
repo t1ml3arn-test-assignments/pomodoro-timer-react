@@ -8,22 +8,23 @@ class App extends Component {
 
   constructor(props) {
     super(props)
-    this.timeScale = 0.025
+    this.timeScale = 1
 
+    const sessionLength = 5
     this.state = {
       breakLength: 2,
-      sessionLength: 5,
-      secondsLeft: 0,
+      sessionLength,
+      timeLeft: sessionLength*60,
       isBreak: false,
       isPaused: true,
     }
   }
 
-  setBreakTime = time => this.setState({ breakLength: time })
-  setSessionTime = time => this.setState({ sessionLength: time })
-
-  componentDidMount() {
-    this.setState({ secondsLeft: this.getSessionTime(this.state.isBreak) })
+  setTime(sessionType) {
+    return function(time) {
+      this.setState(state => ({ [`${sessionType}Length`] : time }))
+      this.resetTimer()
+    }
   }
 
   runTimer = () => {
@@ -44,34 +45,35 @@ class App extends Component {
     window.clearInterval(this.intervalId)
     
     this.intervalId = setInterval(() => {
-      this.setState({ secondsLeft: this.state.secondsLeft-1 })
+      this.setState({ timeLeft: this.state.timeLeft-1 })
     }, 1000 * this.timeScale)
   }
   
   startTimeout() {
     window.clearTimeout(this.timeoutId)
 
-    const {secondsLeft} = this.state
+    const {timeLeft} = this.state
 
     this.timeoutId = setTimeout(() => {
       window.clearInterval(this.intervalId)
+      
+      function getSessionTime(isBreak, state) {
+        return isBreak ? state.breakLength*60 : state.sessionLength*60
+      }
 
-      const isBreak = this.state.isBreak
-      const newSessionType = !isBreak
-
-      this.setState({
-        isBreak: newSessionType,
-        secondsLeft: this.getSessionTime(newSessionType),
+      this.setState(state => {
+        const isBreak = state.isBreak
+        const newSessionType = !isBreak
+        return {
+          isBreak: !isBreak,
+          timeLeft: getSessionTime(newSessionType, state),
+        }
       })
 
       this.startCountdown()
       this.startTimeout()
 
-    }, secondsLeft * 1000 * this.timeScale)
-  }
-
-  getSessionTime(isBreak) {
-    return isBreak ? this.state.breakLength*60 : this.state.sessionLength*60
+    }, timeLeft * 1000 * this.timeScale)
   }
 
   pauseTimer = () => {
@@ -85,11 +87,14 @@ class App extends Component {
     window.clearInterval(this.intervalId)
     window.clearInterval(this.timeoutId)
 
-    this.setState({
-      // current session becomes SESSION
-      isBreak: false,
-      // current time becomes equal to SESSION TIME
-      secondsLeft: this.getSessionTime(false),
+    this.setState(state => {
+      return {
+          // current session becomes SESSION
+        isBreak: false,
+        // current time becomes equal to SESSION TIME
+        timeLeft: state.sessionLength * 60,
+        isPaused: true,
+      }
     })
     // sound stops
     // ? reset session length
@@ -98,15 +103,19 @@ class App extends Component {
 
   render() {
 
-    const {sessionLength, breakLength, secondsLeft, isBreak, isPaused} = this.state
+    const {sessionLength, breakLength, timeLeft, isBreak, isPaused} = this.state
     const sessionType = isBreak ? SessionType.BREAK : SessionType.SESSION
     const stopStartTimer = isPaused ? this.runTimer : this.pauseTimer
 
     return (
       <div className="App">
-        <TimerSetup timerType="Session time" time={ sessionLength } setTime={ this.setSessionTime } />
-        <TimerSetup timerType="Break time" time={ breakLength }  setTime={ this.setBreakTime } />
-        <TimerView timerLabel={ sessionType } secondsLeft={ secondsLeft }/>
+        <TimerSetup timerType="Session time" time={ sessionLength } 
+          setTime={ this.setTime('session').bind(this) }
+        />
+        <TimerSetup timerType="Break time" time={ breakLength } 
+          setTime={ this.setTime('break').bind(this) }
+        />
+        <TimerView timerLabel={ sessionType } secondsLeft={ timeLeft }/>
         <Controls 
           stopStartTimer={ stopStartTimer } resetTimer={ this.resetTimer }
           isPaused={ isPaused }/>
