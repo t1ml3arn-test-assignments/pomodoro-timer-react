@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import TimerSetup from './TimerSetup'
 import TimerView from './TimerView';
+import Controls from './Controls';
 
 class App extends Component {
 
@@ -14,6 +15,7 @@ class App extends Component {
       sessionLength: 5,
       secondsLeft: 0,
       isBreak: false,
+      isPaused: true,
     }
   }
 
@@ -21,8 +23,12 @@ class App extends Component {
   setSessionTime = time => this.setState({ sessionLength: time })
 
   componentDidMount() {
+    this.setState({ secondsLeft: this.getSessionTime(this.state.isBreak) })
+  }
+
+  runTimer = () => {
     this.setState(
-      { secondsLeft: this.getSessionTime(this.state.isBreak) }
+      { isPaused: false, }
       , 
       // since state updates not immideatly
       // we provide a callback to start timers
@@ -45,7 +51,6 @@ class App extends Component {
   startTimeout() {
     window.clearTimeout(this.timeoutId)
 
-    // const secondsLeft = this.getSessionTime(this.state.isBreak)
     const {secondsLeft} = this.state
 
     this.timeoutId = setTimeout(() => {
@@ -69,16 +74,42 @@ class App extends Component {
     return isBreak ? this.state.breakLength*60 : this.state.sessionLength*60
   }
 
+  pauseTimer = () => {
+    window.clearInterval(this.intervalId)
+    window.clearInterval(this.timeoutId)
+    this.setState({ isPaused: true })
+  }
+
+  resetTimer = () => {
+    // timer becomes deactivated
+    window.clearInterval(this.intervalId)
+    window.clearInterval(this.timeoutId)
+
+    this.setState({
+      // current session becomes SESSION
+      isBreak: false,
+      // current time becomes equal to SESSION TIME
+      secondsLeft: this.getSessionTime(false),
+    })
+    // sound stops
+    // ? reset session length
+    // ? reset break length
+  }
+
   render() {
 
-    const {sessionLength, breakLength, secondsLeft, isBreak} = this.state
+    const {sessionLength, breakLength, secondsLeft, isBreak, isPaused} = this.state
     const sessionType = isBreak ? SessionType.BREAK : SessionType.SESSION
+    const stopStartTimer = isPaused ? this.runTimer : this.pauseTimer
 
     return (
       <div className="App">
         <TimerSetup timerType="Session time" time={ sessionLength } setTime={ this.setSessionTime } />
         <TimerSetup timerType="Break time" time={ breakLength }  setTime={ this.setBreakTime } />
         <TimerView timerLabel={ sessionType } secondsLeft={ secondsLeft }/>
+        <Controls 
+          stopStartTimer={ stopStartTimer } resetTimer={ this.resetTimer }
+          isPaused={ isPaused }/>
       </div>
     );
 
