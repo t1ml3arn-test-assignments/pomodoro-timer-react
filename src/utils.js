@@ -1,9 +1,8 @@
 export function secondsToString(value) {
-  const hours = Math.trunc(value/3600)
-  const minutes = Math.trunc((value-hours*3600)/60)
+  const minutes = Math.trunc(value/60)
   const seconds = value % 60
   
-  let str = hours == 0 ? '' : prependZero(hours) + ':'
+  let str = ''
   str += prependZero(minutes) + ':'
   str += prependZero(seconds) + ':'
 
