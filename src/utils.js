@@ -4,7 +4,7 @@ export function secondsToString(value) {
   
   let str = ''
   str += prependZero(minutes) + ':'
-  str += prependZero(seconds) + ':'
+  str += prependZero(seconds)
 
   return str
 }
