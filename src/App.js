@@ -5,6 +5,9 @@ import TimerView from './TimerView';
 import Controls from './Controls';
 import alarm1 from './alarm1.mp3';
 
+// based on 
+// https://learn.freecodecamp.org/front-end-libraries/front-end-libraries-projects/build-a-pomodoro-clock/
+
 class App extends Component {
 
   constructor(props) {
