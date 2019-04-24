@@ -3,15 +3,14 @@ import PropTypes from "prop-types"
 
 function TimerSetup(props) {
 
-  const {minTime, maxTime, time, incrementTime, setTime} = props
+  const {minTime, maxTime, time, incrementTime, setTime, timerLabel} = props
 
   const onChange = e => {
     setTime(e.target.value)
   }
 
   return (
-    <div>
-      <h2>{ props.timerType }</h2>
+      <h2>{ timerLabel }</h2>
       <input type='range' 
         min={minTime} max={maxTime} step="1" value={time} 
         onChange={ onChange }
