@@ -102,15 +102,13 @@ class App extends Component {
 
     this.audioRef.current.pause()
 
-    this.setState(state => {
-      return {
-          // current session becomes SESSION
+    this.setState(state => ({
+        // current session becomes SESSION
         isBreak: false,
         // current time becomes equal to SESSION TIME
         timeLeft: state.sessionLength * 60,
         isPaused: true,
-      }
-    })
+    }))
     // sound stops
     // ? reset session length
     // ? reset break length
