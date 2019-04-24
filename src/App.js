@@ -28,7 +28,16 @@ class App extends Component {
     this.setState(state => ({ [`${sessionType}Length`] : time }))
     this.resetTimer()
   }
+
+  setSessionTime(propName, time) {
+    const {maxTime, minTime} = this.state
+    const currentTime = this.state[propName]
+
+    time = !time ? currentTime : ( typeof(time) === 'string' ? parseInt(time) : time)
+    time = Math.min(maxTime, Math.max(minTime, time))
   
+    this.setState({ [propName] : time })
+  }
 
   runTimer = () => {
     this.audioRef.current.pause()
