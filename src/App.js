@@ -22,12 +22,11 @@ class App extends Component {
     }
   }
 
-  setTime(sessionType) {
-    return function(time) {
-      this.setState(state => ({ [`${sessionType}Length`] : time }))
-      this.resetTimer()
-    }
+  setTime(sessionType, time) {
+    this.setState(state => ({ [`${sessionType}Length`] : time }))
+    this.resetTimer()
   }
+  
 
   runTimer = () => {
     this.audioRef.current.pause()
@@ -123,10 +122,10 @@ class App extends Component {
     return (
       <div className="App">
         <TimerSetup timerType="Session time" time={ sessionLength } 
-          setTime={ this.setTime('session').bind(this) }
+          setTime={ this.setTime.bind(this, 'session') }
         />
         <TimerSetup timerType="Break time" time={ breakLength } 
-          setTime={ this.setTime('break').bind(this) }
+          setTime={ this.setTime.bind(this, 'break') }
         />
         <TimerView timerLabel={ timerLabel } secondsLeft={ timeLeft }/>
         <Controls 
