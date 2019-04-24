@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from "prop-types"
 
 class Controls extends React.Component {
   render() {
@@ -14,6 +15,10 @@ class Controls extends React.Component {
       </div>
     )
   }
+
+Controls.propTypes = {
+  resetTimer: PropTypes.func.isRequired,
+  stopStartTimer: PropTypes.func.isRequired,
 }
 
 export default Controls;
