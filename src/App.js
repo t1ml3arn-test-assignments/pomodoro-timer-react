@@ -3,12 +3,14 @@ import './App.css';
 import TimerSetup from './TimerSetup'
 import TimerView from './TimerView';
 import Controls from './Controls';
+import alarm1 from './alarm1.mp3';
 
 class App extends Component {
 
   constructor(props) {
     super(props)
     this.timeScale = 1
+    this.audioRef = React.createRef()
 
     const sessionLength = 5
     this.state = {
@@ -28,6 +30,8 @@ class App extends Component {
   }
 
   runTimer = () => {
+    this.audioRef.current.pause()
+
     this.setState(
       { isPaused: false, }
       , 
@@ -70,6 +74,13 @@ class App extends Component {
         }
       })
 
+      const audio = this.audioRef.current
+      
+      audio.pause()
+      audio.currentTime = 0.0
+      audio.playbackRate = 1.1
+      audio.play()
+
       this.startCountdown()
       this.startTimeout()
 
@@ -79,6 +90,8 @@ class App extends Component {
   pauseTimer = () => {
     window.clearInterval(this.intervalId)
     window.clearInterval(this.timeoutId)
+
+    this.audioRef.current.pause()
     this.setState({ isPaused: true })
   }
 
@@ -86,6 +99,8 @@ class App extends Component {
     // timer becomes deactivated
     window.clearInterval(this.intervalId)
     window.clearInterval(this.timeoutId)
+
+    this.audioRef.current.pause()
 
     this.setState(state => {
       return {
@@ -120,6 +135,7 @@ class App extends Component {
           stopStartTimer={ stopStartTimer } resetTimer={ this.resetTimer }
           isPaused={ isPaused }
         />
+        <audio ref={this.audioRef} preload='auto' src={alarm1}></audio>
       </div>
     );
 
