@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   setTime(sessionType, time) {
-    this.setState(state => ({ [`${sessionType}Length`] : time }))
+    this.setSessionTime(`${sessionType}Length`, time)
     this.resetTimer()
   }
 

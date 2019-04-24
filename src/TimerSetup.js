@@ -4,13 +4,7 @@ import PropTypes from "prop-types"
 class TimerSetup extends Component {
 
   onChange = e => {
-    let {type, value} = e.target
-    const {minTime, maxTime, setTime, time} = this.props
-
-    value = !value ? time : parseInt(value)
-    value = bound(value, minTime, maxTime)
-    
-    setTime(value)
+    this.props.setTime(e.target.value)
   }
 
   render() {
