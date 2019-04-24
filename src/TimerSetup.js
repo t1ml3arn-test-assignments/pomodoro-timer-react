@@ -50,8 +50,4 @@ TimerSetup.defaultProps = {
   step: 5,
 }
 
-function bound(value, min, max) {
-  return Math.min(max, Math.max(min, value))
-}
-
 export default TimerSetup;
