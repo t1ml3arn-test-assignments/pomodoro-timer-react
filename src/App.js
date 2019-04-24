@@ -19,6 +19,8 @@ class App extends Component {
       timeLeft: sessionLength*60,
       isBreak: false,
       isPaused: true,
+      maxTime: 60,
+      minTime: 1
     }
   }
 
