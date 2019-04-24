@@ -1,20 +1,17 @@
 import React from 'react'
 import PropTypes from "prop-types"
 
-class Controls extends React.Component {
-  render() {
-    // start/resume
-    // pause
+function Controls(props) {
 
-    const {resetTimer, stopStartTimer} = this.props
+  const {resetTimer, stopStartTimer} = props
 
-    return (
-      <div>
-        <button onClick={ stopStartTimer }>Start / Pause</button>
-        <button onClick={ resetTimer }>Reset</button>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <button onClick={ stopStartTimer }>Start / Pause</button>
+      <button onClick={ resetTimer }>Reset</button>
+    </div>
+  )
+}
 
 Controls.propTypes = {
   resetTimer: PropTypes.func.isRequired,
