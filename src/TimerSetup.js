@@ -39,7 +39,6 @@ TimerSetup.propTypes = {
   minTime: PropTypes.number,
   maxTime:  PropTypes.number,
   time: PropTypes.number,
-  step: PropTypes.number
 }
 
 TimerSetup.defaultProps = {
@@ -47,7 +46,6 @@ TimerSetup.defaultProps = {
   minTime: 1,
   maxTime: 60,
   time: 5,
-  step: 5,
 }
 
 export default TimerSetup;
