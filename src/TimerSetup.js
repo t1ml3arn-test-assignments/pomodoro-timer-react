@@ -39,6 +39,8 @@ TimerSetup.propTypes = {
   minTime: PropTypes.number,
   maxTime:  PropTypes.number,
   time: PropTypes.number,
+  incrementTime: PropTypes.func.isRequired,
+  setTime: PropTypes.func.isRequired,
 }
 
 TimerSetup.defaultProps = {
