@@ -142,8 +142,7 @@ class App extends Component {
     const stopStartTimer = isPaused ? this.runTimer : this.pauseTimer
 
     return (
-      <div className="App">
-        <TimerSetup timerType="Session time" time={ sessionLength } 
+      <div className="pomodoro-timer">
           setTime={ this.setTime.bind(this, 'session') }
           incrementTime={ this.incrementTime.bind(this, 'session') }
         />
