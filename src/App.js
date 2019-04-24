@@ -104,7 +104,7 @@ class App extends Component {
   render() {
 
     const {sessionLength, breakLength, timeLeft, isBreak, isPaused} = this.state
-    const sessionType = isBreak ? SessionType.BREAK : SessionType.SESSION
+    const timerLabel = isBreak ? SessionType.BREAK : SessionType.SESSION
     const stopStartTimer = isPaused ? this.runTimer : this.pauseTimer
 
     return (
@@ -115,10 +115,11 @@ class App extends Component {
         <TimerSetup timerType="Break time" time={ breakLength } 
           setTime={ this.setTime('break').bind(this) }
         />
-        <TimerView timerLabel={ sessionType } secondsLeft={ timeLeft }/>
+        <TimerView timerLabel={ timerLabel } secondsLeft={ timeLeft }/>
         <Controls 
           stopStartTimer={ stopStartTimer } resetTimer={ this.resetTimer }
-          isPaused={ isPaused }/>
+          isPaused={ isPaused }
+        />
       </div>
     );
 
