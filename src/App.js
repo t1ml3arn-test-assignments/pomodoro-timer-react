@@ -34,7 +34,6 @@ class App extends Component {
     const propName = `${sessionType}Length`
   
     this.setSessionTime(propName, this.state[propName] + inc)
-    // this.setState({ [propName] : this.state[propName] + inc })
     this.resetTimer()
   }
 
@@ -119,6 +118,7 @@ class App extends Component {
     window.clearInterval(this.intervalId)
     window.clearInterval(this.timeoutId)
 
+    // sound stops
     this.audioRef.current.pause()
 
     this.setState(state => ({
@@ -128,7 +128,6 @@ class App extends Component {
         timeLeft: state.sessionLength * 60,
         isPaused: true,
     }))
-    // sound stops
     // ? reset session length
     // ? reset break length
   }
