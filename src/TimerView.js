@@ -1,5 +1,6 @@
 import React from 'react'
 import { secondsToString } from './utils';
+import PropTypes from "prop-types"
 
 function TimerView(props) {
 
@@ -13,6 +14,11 @@ function TimerView(props) {
       <div>{ timeLeft }</div>
     </div>
   )
+}
+
+TimerView.propTypes = {
+  timerLabel: PropTypes.string.isRequired,
+  secondsLeft: PropTypes.number.isRequired
 }
 
 export default TimerView;
