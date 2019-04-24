@@ -1,37 +1,35 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 
-class TimerSetup extends Component {
+function TimerSetup(props) {
 
-  onChange = e => {
-    this.props.setTime(e.target.value)
+  const {minTime, maxTime, time, incrementTime, setTime} = props
+
+  const onChange = e => {
+    setTime(e.target.value)
   }
 
-  render() {
-    const {minTime, maxTime, time, incrementTime} = this.props
-
-    return (
+  return (
+    <div>
+      <h2>{ props.timerType }</h2>
+      <input type='range' 
+        min={minTime} max={maxTime} step="1" value={time} 
+        onChange={ onChange }
+      />
       <div>
-        <h2>{ this.props.timerType }</h2>
-        <input type='range' 
+        <button
+          onClick={ e => incrementTime(-1) }
+          >-</button>
+        <input type='number' 
           min={minTime} max={maxTime} step="1" value={time} 
-          onChange={this.onChange}
-        />
-        <div>
-          <button
-            onClick={ e => incrementTime(-1) }
-            >-</button>
-          <input type='number' 
-            min={minTime} max={maxTime} step="1" value={time} 
-            onChange={this.onChange}
-            />
-          <button
-            onClick={ e => incrementTime(+1) }
-          >+</button>
-        </div>
+          onChange={ onChange }
+          />
+        <button
+          onClick={ e => incrementTime(+1) }
+        >+</button>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 TimerSetup.propTypes = {
