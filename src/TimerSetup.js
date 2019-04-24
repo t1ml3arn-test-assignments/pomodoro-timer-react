@@ -8,7 +8,7 @@ class TimerSetup extends Component {
   }
 
   render() {
-    const {minTime, maxTime, time} = this.props
+    const {minTime, maxTime, time, incrementTime} = this.props
 
     return (
       <div>
@@ -18,12 +18,16 @@ class TimerSetup extends Component {
           onChange={this.onChange}
         />
         <div>
-          <button>-</button>
+          <button
+            onClick={ e => incrementTime(-1) }
+            >-</button>
           <input type='number' 
             min={minTime} max={maxTime} step="1" value={time} 
             onChange={this.onChange}
-          />
-          <button>+</button>
+            />
+          <button
+            onClick={ e => incrementTime(+1) }
+          >+</button>
         </div>
       </div>
     )

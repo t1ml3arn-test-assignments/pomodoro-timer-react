@@ -29,6 +29,15 @@ class App extends Component {
     this.resetTimer()
   }
 
+  incrementTime(sessionType, inc) {
+    
+    const propName = `${sessionType}Length`
+  
+    this.setSessionTime(propName, this.state[propName] + inc)
+    // this.setState({ [propName] : this.state[propName] + inc })
+    this.resetTimer()
+  }
+
   setSessionTime(propName, time) {
     const {maxTime, minTime} = this.state
     const currentTime = this.state[propName]
@@ -134,9 +143,11 @@ class App extends Component {
       <div className="App">
         <TimerSetup timerType="Session time" time={ sessionLength } 
           setTime={ this.setTime.bind(this, 'session') }
+          incrementTime={ this.incrementTime.bind(this, 'session') }
         />
         <TimerSetup timerType="Break time" time={ breakLength } 
           setTime={ this.setTime.bind(this, 'break') }
+          incrementTime={ this.incrementTime.bind(this, 'break') }
         />
         <TimerView timerLabel={ timerLabel } secondsLeft={ timeLeft }/>
         <Controls 
