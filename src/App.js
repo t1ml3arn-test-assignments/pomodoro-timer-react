@@ -143,14 +143,16 @@ class App extends Component {
 
     return (
       <div className="pomodoro-timer">
-        <TimerSetup timerLabel="session time" time={ sessionLength } 
-          setTime={ this.setTime.bind(this, 'session') }
-          incrementTime={ this.incrementTime.bind(this, 'session') }
-        />
-        <TimerSetup timerLabel="break time" time={ breakLength } 
-          setTime={ this.setTime.bind(this, 'break') }
-          incrementTime={ this.incrementTime.bind(this, 'break') }
-        />
+        <div className='timer-setup-wrap'>
+          <TimerSetup timerLabel="session time" time={ sessionLength } 
+            setTime={ this.setTime.bind(this, 'session') }
+            incrementTime={ this.incrementTime.bind(this, 'session') }
+          />
+          <TimerSetup timerLabel="break time" time={ breakLength } 
+            setTime={ this.setTime.bind(this, 'break') }
+            incrementTime={ this.incrementTime.bind(this, 'break') }
+          />
+        </div>
         <TimerView timerLabel={ timerLabel } secondsLeft={ timeLeft }/>
         <Controls 
           stopStartTimer={ stopStartTimer } resetTimer={ this.resetTimer }

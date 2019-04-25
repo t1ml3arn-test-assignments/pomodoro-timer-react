@@ -8,7 +8,7 @@ function Controls(props) {
   const startLabel = isPaused ? 'Run' : 'Pause'
 
   return (
-    <div>
+    <div className='timer-controls'>
       <button onClick={ stopStartTimer }>{ startLabel }</button>
       <button onClick={ resetTimer }>Reset</button>
     </div>

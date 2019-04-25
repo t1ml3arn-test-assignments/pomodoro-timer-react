@@ -10,12 +10,14 @@ function TimerSetup(props) {
   }
 
   return (
+    <div className='timer-setup'>
       <h2>{ timerLabel }</h2>
+      <span className='sub-text'>in minutes</span>
       <input type='range' 
         min={minTime} max={maxTime} step="1" value={time} 
         onChange={ onChange }
       />
-      <div>
+      <div className='timer-setup__controls'>
         <button
           onClick={ e => incrementTime(-1) }
           >-</button>

@@ -8,10 +8,10 @@ function TimerView(props) {
   let timeLeft = secondsToString(secondsLeft)
 
   return (
-    <div>
+    <div className='timer-view'>
       <h2>{ timerLabel }</h2>
       <p>time left</p>
-      <div>{ timeLeft }</div>
+      <div className='time-left'>{ timeLeft }</div>
     </div>
   )
 }
