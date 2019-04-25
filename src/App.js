@@ -15,9 +15,9 @@ class App extends Component {
     this.timeScale = 1
     this.audioRef = React.createRef()
 
-    const sessionLength = 5
+    const sessionLength = 25
     this.state = {
-      breakLength: 2,
+      breakLength: 5,
       sessionLength,
       timeLeft: sessionLength*60,
       isBreak: false,
