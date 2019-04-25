@@ -29,6 +29,8 @@ class App extends Component {
 
   setTime(sessionType, time) {
     this.setSessionTime(`${sessionType}Length`, time)
+    ///TODO reset timer only if given sessionType
+    // matches current session
     this.resetTimer()
   }
 
@@ -37,6 +39,8 @@ class App extends Component {
     const propName = `${sessionType}Length`
   
     this.setSessionTime(propName, this.state[propName] + inc)
+    ///TODO reset timer only if given sessionType
+    // matches current session
     this.resetTimer()
   }
 
